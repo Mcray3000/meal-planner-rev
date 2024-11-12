@@ -411,4 +411,15 @@ Request:
 Response:
 
     { "review_id": 32 }
-    
+
+Request:
+
+    curl -X 'POST' \
+  'https://meal-planner-9c99.onrender.com/reviews/delete/4/32?deleted_by=Spaghetti%20Tom' \
+  -H 'accept: application/json' \
+  -d ''
+
+  Response:
+
+      "Ok"
+
