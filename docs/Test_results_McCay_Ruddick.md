@@ -1,8 +1,11 @@
+
+# Testing example flows from v2_manual_test_results.md
+
 Request
 
     curl -X 'GET' \   'https://meal-planner-9c99.onrender.com/recipes?ingredients=flour&ingredients=egg' \   -H 'accept: application/json'
 
-Responce
+Response:
 
     [
       {
@@ -229,7 +232,7 @@ Request:
      { "supply_name": "pan" }
      ]
      }'
-Responce:
+Response:
 
     {
       "recipe_created": "Recipe created successfully",
@@ -256,7 +259,7 @@ Request:
      ]
      }'
 
-Responce:
+Response:
 
     {
       "recipe_updated": "Recipe updated successfully"
@@ -319,16 +322,16 @@ Request:
       'https://meal-planner-9c99.onrender.com/recipes/1' \
       -H 'accept: application/json'
 
-Responce:
+Response:
 
     Internal Server Error 500
 
 Request: 
 
     curl -X 'DELETE' \ 'https://meal-planner-9c99.onrender.com/recipes/2'
-     \ -H 'accept: application/json'
+     \ -H 'accept: application/json.'
 
-Responce:
+Response:
 
 	
 
@@ -340,7 +343,7 @@ Request:
     curl -X 'DELETE' \ 'https://meal-planner-9c99.onrender.com/recipes/23'
      \ -H 'accept: application/json'
 
-Responce:
+Response:
 	
 
     { "deleted_complete": "Recipe deleted" }
@@ -351,7 +354,7 @@ Request:
     'https://meal-planner-9c99.onrender.com/carts/create/{cart_id}'
      \ -H 'accept: application/json' \ -d ''
 
-Responce:
+Response:
 
     Internal Server Error 500
 
@@ -362,7 +365,7 @@ Request:
       -H 'accept: application/json' \
       -d ''
 
-Responce:
+Response:
 
     Internal Server Error 500
 Request:
@@ -371,7 +374,7 @@ Request:
     'https://meal-planner-9c99.onrender.com/carts/{cart_id}/items/{item_id}?ingredient_name=test&quantity=2' 
     \ -H 'accept: application/json' \ -d ''
 
-Responce:
+Response:
 
     Internal Server Error 500
 
@@ -382,11 +385,20 @@ Request:
     'https://meal-planner-9c99.onrender.com/carts/{cart_id}/checkout?customer_name=test&card_num=123123&exp_date=3212&customer_id=3'
      \ -H 'accept: application/json' \ -d ''
 
-Responce:
+Response:
 
     Internal Server Error 500
 
-All of the carts stuff does not seem to work, some of the endpoints listen in v2_manual_test_results.md and in ExampleFlows.md do not seem to exist and they all return 500 errors when called.
+None of the cart endpoints appear to be functioning, and some endpoints listed in v2_manual_test_results.md and ExampleFlows.md do not seem to exist. All of them return 500 errors when called.
 
+# Testing example flows from v1_manual_test_results.md
 
+Request:
 
+    curl -X 'GET' \
+    'https://meal-planner-9c99.onrender.com/reviews/1' \
+    -H 'accept: application/json'
+
+Response:
+
+    [ { "recipe_name": "Updated Pancakes", "rating": 1, "review": "good", "customer": "Robert California" }, { "recipe_name": "Updated Pancakes", "rating": 5, "review": "This recipe rocks", "customer": "Robert California" }, { "recipe_name": "Updated Pancakes", "rating": 0, "review": "\"Cake blows\"", "customer": "Robert California" }, { "recipe_name": "Updated Pancakes", "rating": 0, "review": "\"Cake blows\"", "customer": "testTy123" }, { "recipe_name": "Updated Pancakes", "rating": 0, "review": "\"Cake blows\"", "customer": "Test Customer!" } ]
