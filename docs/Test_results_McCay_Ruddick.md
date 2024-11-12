@@ -121,96 +121,7 @@ Response:
             "supply_name": "blender"
           }
         ]
-      },
-      {
-        "id": 17,
-        "name": "Pancakes",
-        "ingredients": [
-          {
-            "name": "Egg",
-            "amount_units": "2",
-            "price": 3,
-            "item_type": "1"
-          },
-          {
-            "name": "Flour",
-            "amount_units": "2 cups",
-            "price": 1,
-            "item_type": "1"
-          }
-        ],
-        "instructions": "Mix and cook",
-        "time": 15,
-        "difficulty": "beginner",
-        "supplies": [
-          {
-            "supply_name": "spatula"
-          },
-          {
-            "supply_name": "pan"
-          }
-        ]
-      },
-      {
-        "id": 20,
-        "name": "Haddie's Cheating",
-        "ingredients": [
-          {
-            "name": "spam",
-            "amount_units": "3 tests",
-            "price": -10,
-            "item_type": "Spam"
-          }
-        ],
-        "instructions": "Make multiple reviews",
-        "time": 1,
-        "difficulty": "beginner",
-        "supplies": [
-          {
-            "supply_name": "computer"
-          }
-        ]
-      },
-      {
-        "id": 21,
-        "name": "string",
-        "ingredients": [
-          {
-            "name": "string",
-            "amount_units": "string",
-            "price": 0,
-            "item_type": "string"
-          }
-        ],
-        "instructions": "string",
-        "time": 0,
-        "difficulty": "string",
-        "supplies": [
-          {
-            "supply_name": "string"
-          }
-        ]
-      },
-      {
-        "id": 22,
-        "name": "string",
-        "ingredients": [
-          {
-            "name": "string",
-            "amount_units": "string",
-            "price": 0,
-            "item_type": "string"
-          }
-        ],
-        "instructions": "Bake potatoes at 400",
-        "time": 0,
-        "difficulty": "string",
-        "supplies": [
-          {
-            "supply_name": "string"
-          }
-        ]
-      }
+      },...
     ]
 
 Request:
@@ -282,17 +193,7 @@ Responce:
             "price": 2,
             "item_type": "1"
           },
-          {
-            "name": "Oil",
-            "amount_units": "1/4 cup",
-            "price": 2,
-            "item_type": "1"
-          },
-          {
-            "name": "Egg",
-            "amount_units": "1 egg",
-            "price": 3,
-            "item_type": "1"
+          ...
           }
         ]   },   {
         "id": 17,
@@ -304,17 +205,7 @@ Responce:
             "price": 3,
             "item_type": "1"
           }
-        ]   },   {
-        "id": 1,
-        "name": "Updated Pancakes",
-        "missing_ingredients": [
-          {
-            "name": "Egg",
-            "amount_units": "2",
-            "price": 3,
-            "item_type": "1"
-          }
-        ]   } ]
+        ]   }, ...
         
 Request:
 
@@ -583,15 +474,130 @@ Response:
 Marty notices that he has just impersonated someone as he has never been given a customer_id, he just gave one randomly
 
 
-4. Feeling malicious Marty decides to update Toms recipie without his knowdlege
+3. Feeling malicious Marty decides to update Toms recipie without his knowdlege by calling `PUT recipies/{id}`
 
-Bob now has a shopping list with an item added to it that is priced under $10.
+Request: 
+	   curl -X 'PUT' \
+	  'https://meal-planner-9c99.onrender.com/recipes/25' \
+	  -H 'accept: application/json' \
+	  -H 'Content-Type: application/json' \
+	  -d '{
+	  "id": 25,
+	  "name": "Marty",
+	  "ingredients": [
+	    {
+	      "name": "Marty",
+	      "amount_units": "Marty",
+	      "price": -100000,
+	      "item_type": "Marty"
+	    }
+	  ],
+	  "instructions": "Marty",
+	  "time": -100000,
+	  "difficulty": "Marty",
+	  "supplies": [
+	    {
+	      "supply_name": "Marty"
+	    }
+	  ]
+	}'
+Response:
+	
+	{
+	  "recipe_updated": "Recipe updated successfully"
+	}
+
+ 4. Marty now would like to check his work by calling `GET recipies/{id}` again
+
+Request:
+	curl -X 'GET' \
+	  'https://meal-planner-9c99.onrender.com/recipes/25' \
+	  -H 'accept: application/json'
+Response:
+	{
+	  "id": 25,
+	  "name": "Marty",
+	  "ingredients": [
+	    {
+	      "name": "marty",
+	      "amount_units": "Marty",
+	      "price": -100000,
+	      "item_type": "Marty"
+	    }
+	  ],
+	  "instructions": "Marty",
+	  "time": -100000,
+	  "difficulty": "Marty",
+	  "supplies": [
+	    {
+	      "supply_name": "marty"
+	    }
+	  ]
+	}
+
+Marty has now soiled Toms's plans to have fun and share his recipe, He has also put in negative values into price and time.
 
 ---
 
-# New Workflow 3: Carl changes his budget preferences and deletes a shopping list
+# New Workflow 3: Tom Spaghetti is back to check on his ratings and see how his recipe is doing.
 
-First, Carl must edit his preferences, then go and delete the list.
-1. Carl starts by calling `PUT users/{user_id}/preferences` to set the maximum price per item to $8, replacing his last set of preferences.
-2. Then Carl calls `GET users/{user_id}/shopping_lists` to get the shopping list IDs of all the shopping lists he has.
-3. Finally, Carl calls `DELETE users/{user_id}/{list_id}` to remove the desired shopping list.
+1. Tom starts by checking on his good ol recipe_id number 25 `GET reviews/{recipe_id}` to see if anyone left any constructive feedback for him
+
+Request:
+
+	curl -X 'GET' \
+	  'https://meal-planner-9c99.onrender.com/reviews/25' \
+	  -H 'accept: application/json'
+Response:
+	[
+	  {
+	    "recipe_name": "Marty",
+	    "rating": 2,
+	    "review": "Where on earth am I to find a big ol egg",
+	    "customer": "Test Customer!"
+	  }
+	]
+
+ Tom is very confused, he wrote down his recipie_id so he is certian something must be wrong, who is this "Test Customer!" and why is his recipe named "Marty"
+
+2. Confused, Tom checks on his recipe by calling `GET recipies/{id}`
+
+Request:
+
+	curl -X 'GET' \
+	  'https://meal-planner-9c99.onrender.com/recipes/25' \
+	  -H 'accept: application/json'
+Response:
+
+	{
+	  "id": 25,
+	  "name": "Marty",
+	  "ingredients": [
+	    {
+	      "name": "marty",
+	      "amount_units": "Marty",
+	      "price": -100000,
+	      "item_type": "Marty"
+	    }
+	  ],
+	  "instructions": "Marty",
+	  "time": -100000,
+	  "difficulty": "Marty",
+	  "supplies": [
+	    {
+	      "supply_name": "marty"
+	    }
+	  ]
+	}
+ Tom is very confused and hisheartened
+
+3. Worried that this horrid recipe might be tied back to Tom he attempts to delete it using `DELETE recipies/{id}`
+
+Request:
+	curl -X 'DELETE' \
+	  'https://meal-planner-9c99.onrender.com/recipes/25' \
+	  -H 'accept: application/json'
+Response:
+	Internal Server Error (500)
+
+There seems to be an issue with the delete function; Tom is now trapped as the owner of the recipe, while Marty has won and remained anonymous.
