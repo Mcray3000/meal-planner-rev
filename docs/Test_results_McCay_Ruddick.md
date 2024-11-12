@@ -6,7 +6,7 @@ Request
     curl -X 'GET' \   'https://meal-planner-9c99.onrender.com/recipes?ingredients=flour&ingredients=egg' \   -H 'accept: application/json'
 
 Response:
-
+```
     [
       {
         "id": 1,
@@ -37,92 +37,9 @@ Response:
             "item_type": "1"
           }
         ],
-        "instructions": "Add oil to pan and place on stove on medium heat. Crack eggs into a bowl and season with salt and pepper. Whisk eggs until consistent color/texture. Pour egg mixture into pan. Mix occasionally to prevent eggs from sticking to the pan. Cook until the eggs reach your desired consistency. Remove from heat and enjoy.",
-        "time": 10,
-        "difficulty": "beginner",
-        "supplies": [
-          {
-            "supply_name": "pan"
-          }
-        ]
-      },
-      {
-        "id": 12,
-        "name": "Banana Bread",
-        "ingredients": [
-          {
-            "name": "Sugar",
-            "amount_units": "4 cups",
-            "price": 3,
-            "item_type": "1"
-          },
-          {
-            "name": "Egg",
-            "amount_units": "1 egg",
-            "price": 3,
-            "item_type": "1"
-          },
-          {
-            "name": "Oil",
-            "amount_units": "1/4 cup",
-            "price": 2,
-            "item_type": "1"
-          },
-          {
-            "name": "Banana",
-            "amount_units": "5 large",
-            "price": 2,
-            "item_type": "1"
-          },
-          {
-            "name": "Flour",
-            "amount_units": "2 cups",
-            "price": 1,
-            "item_type": "1"
-          }
-        ],
-        "instructions": "combine all ingredients, back at 355 for 55 minutes",
-        "time": 45,
-        "difficulty": "beginner",
-        "supplies": [
-          {
-            "supply_name": "pan"
-          },
-          {
-            "supply_name": "mixing bowl"
-          },
-          {
-            "supply_name": "electric mixer"
-          }
-        ]
-      },
-      {
-        "id": 16,
-        "name": "Milkshake",
-        "ingredients": [
-          {
-            "name": "milk",
-            "amount_units": "1 cup",
-            "price": 2,
-            "item_type": "dairy"
-          },
-          {
-            "name": "ice cream",
-            "amount_units": "2 cups",
-            "price": 5,
-            "item_type": "dairy"
-          }
-        ],
-        "instructions": "put in blender until blended",
-        "time": 5,
-        "difficulty": "beginner",
-        "supplies": [
-          {
-            "supply_name": "blender"
-          }
-        ]
-      },...
+		...
     ]
+```
 
 Request:
 
