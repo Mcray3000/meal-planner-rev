@@ -424,39 +424,166 @@ Request:
       "Ok"
 
 
-# New Workflow 1: Tom Spaghetti creates an account and wants to see what he can do with all his eggs
+# New Workflow 1: Tom Spaghetti creates an account and wants to see what he can do with his egg and he is curious to share his eggsellent recipe
 
 
 1. Tom starts by calling `POST /customers/register` to register and account
 
 Request:
 
-    curl -X 'POST' \
-  'https://meal-planner-9c99.onrender.com/customers/register?customer_name=Tom%20Spagetiit' \
-  -H 'accept: application/json' \
-  -d ''
+	curl -X 'POST' \
+	  'https://meal-planner-9c99.onrender.com/customers/register?customer_name=Tom%20Spagetiit' \
+	  -H 'accept: application/json' \
+	  -d ''
 
 Response:
 
-    {
-  "customer_id": 18
-}
+	{
+	  "customer_id": 18
+	}
 
    
-3. Then Joe calls `GET /stores` to get a list of the stores available in the app, along with the store IDs.
-4. Finally, Joe calls `GET /stores/{store_id}/catalogue`, using the ID of Trader Joe's.
+2. Then Tom calls `GET /recipes/suggestions` to get a list of recipes he can use eggs in
 
-Joe now has a list of the catalogue items at Trader Joe's.
+Request:
+
+	curl -X 'GET' \
+	  'https://meal-planner-9c99.onrender.com/recipes/suggestions?ingredients=egg' \
+	  -H 'accept: application/json'
+
+Response:
+
+	[
+	  {
+	    "id": 12,
+	    "name": "Banana Bread",
+	    "missing_ingredients": [
+	      {
+	        "name": "Flour",
+	        "amount_units": "2 cups",
+	        "price": 1,
+	        "item_type": "1"
+	      },
+	      ...
+	    ]
+	  },
+	  {
+	    "id": 17,
+	    "name": "Pancakes",
+	    "missing_ingredients": [
+	      {
+	        "name": "Flour",
+	        "amount_units": "2 cups",
+	        "price": 1,
+	        "item_type": "1"
+	      }
+	    ]
+	  },
+	  {
+	    "id": 1,
+	    "name": "Updated Pancakes",
+	    "missing_ingredients": [
+	      {
+	        "name": "Flour",
+	        "amount_units": "2 cups",
+	        "price": 1,
+	        "item_type": "1"
+	      }
+	    ]
+	  }
+	]
+
+3. Tom loves the options, but he wants to add one of his own so he calls POST /recipes/
+
+Request:
+
+	curl -X 'POST' \
+	  'https://meal-planner-9c99.onrender.com/recipes/' \
+	  -H 'accept: application/json' \
+	  -H 'Content-Type: application/json' \
+	  -d '{
+	  "id": 369,
+	  "name": "Toms Eggs",
+	  "ingredients": [
+	    {
+	      "name": "egg",
+	      "amount_units": "1 big ol egg",
+	      "price": 1000000000,
+	      "item_type": "Dragon"
+	    }
+	  ],
+	  "instructions": "Put egg in pan, forget about it",
+	  "time": 9001,
+	  "difficulty": "advanced",
+	  "supplies": [
+	    {
+	      "supply_name": "pan"
+	    }
+	  ]
+	}'
+
+Response:
+
+	{
+	  "recipe_created": "Recipe created successfully",
+	  "recipe_id": 25
+	}
 
 ---
 
-# New Workflow 2: Bob creates a shopping list under $10
+# New Workflow 2: Tom Spaghetti's harshest critic Marty Marinara wants to see what Tom has been up to, review his recipe, and change it if it's not up to his standards
 
-First Bob must establish his preferences, then he can look through the catalogue of all stores, with his set parameters, and then add them to a cart.
-1. Bob starts by calling `PUT users/{user_id}/preferences` to set the maximum price per item to $10.
-2. Then Bob calls `GET stores/catalogue?budget<10` to find all items where the value is under $10.
-3. Next, Bob calls `POST users/{user_id}/shopping_list` to create a shopping cart.
-4. Finally, Bob calls `PUT users/{user_id}/{list_id}/item` with the request body `{sku: cheese, quantity: 1}`, using the list ID generated from making the cart.
+1. Marty starts by calling `GET recipies/{id}` and he knows Toms ID is 25
+
+Request:
+
+	curl -X 'GET' \
+	  'https://meal-planner-9c99.onrender.com/recipes/25' \
+	  -H 'accept: application/json'
+Response:
+
+	{
+	  "id": 25,
+	  "name": "Toms Eggs",
+	  "ingredients": [
+	    {
+	      "name": "Egg",
+	      "amount_units": "1 big ol egg",
+	      "price": 3,
+	      "item_type": "1"
+	    }
+	  ],
+	  "instructions": "Put egg in pan, forget about it",
+	  "time": 9001,
+	  "difficulty": "advanced",
+	  "supplies": [
+	    {
+	      "supply_name": "pan"
+	    }
+	  ]
+	}
+ 
+ Marty notices here the code seems to have changed Tom's price from 1 billion to 3 and his item_type from "Dragon" to "1"
+
+2. Then Marty calls `POST /reviews/create/{recipe_id}` to post his review about Toms Eggs.
+
+Request:
+
+	curl -X 'POST' \
+	  'https://meal-planner-9c99.onrender.com/reviews/create/25?customer_id=3&rating=2&review=Where%20on%20earth%20am%20I%20to%20find%20a%20big%20ol%20egg' \
+	  -H 'accept: application/json' \
+	  -d ''
+
+Response:
+
+	{
+	  "review_id": 33
+	}
+ 
+Marty notices that he has just impersonated someone as he has never been given a customer_id, he just gave one randomly
+
+
+4. Feeling malicious Marty decides to update Toms recipie without his knowdlege
 
 Bob now has a shopping list with an item added to it that is priced under $10.
 
