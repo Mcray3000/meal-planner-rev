@@ -1,6 +1,8 @@
 
 # Testing example flows from v2_manual_test_results.md
 
+## Test supply matching ##
+
 Request
 
     curl -X 'GET' \   'https://meal-planner-9c99.onrender.com/recipes?ingredients=flour&ingredients=egg' \   -H 'accept: application/json'
@@ -41,6 +43,8 @@ Response:
     ]
 ```
 
+## Test Recipe creation
+
 Request:
 
     curl -X 'POST' \
@@ -66,6 +70,8 @@ Response:
       "recipe_created": "Recipe created successfully",
       "recipe_id": 23
     }
+
+## Test recipe update
 
 Request:
 
@@ -93,12 +99,14 @@ Response:
       "recipe_updated": "Recipe updated successfully"
     }
 
+## Test recipe suggestions
+
 Request:
 
     curl -X 'GET' \ 'https://meal-planner-9c99.onrender.com/recipes/suggestions?ingredients=flour&ingredients=sugar' 
     \ -H 'accept: application/json'
 
-Responce:
+Response:
 
     [   {
         "id": 12,
@@ -123,7 +131,9 @@ Responce:
             "item_type": "1"
           }
         ]   }, ...
-        
+
+## Test delete recipe 1
+
 Request:
 
     curl -X 'DELETE' \
@@ -134,6 +144,8 @@ Response:
 
     Internal Server Error 500
 
+## Test delete recipe 2
+
 Request: 
 
     curl -X 'DELETE' \ 'https://meal-planner-9c99.onrender.com/recipes/2'
@@ -141,10 +153,10 @@ Request:
 
 Response:
 
-	
-
     404 error: 
     	{ "detail": "Recipe was not found in db" }
+
+## Test delete recipe 3
 
 Request:
 
@@ -153,8 +165,9 @@ Request:
 
 Response:
 	
-
     { "deleted_complete": "Recipe deleted" }
+
+## Cart Tests
 
 Request:
 
