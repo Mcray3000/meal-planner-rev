@@ -402,3 +402,13 @@ Request:
 Response:
 
     [ { "recipe_name": "Updated Pancakes", "rating": 1, "review": "good", "customer": "Robert California" }, { "recipe_name": "Updated Pancakes", "rating": 5, "review": "This recipe rocks", "customer": "Robert California" }, { "recipe_name": "Updated Pancakes", "rating": 0, "review": "\"Cake blows\"", "customer": "Robert California" }, { "recipe_name": "Updated Pancakes", "rating": 0, "review": "\"Cake blows\"", "customer": "testTy123" }, { "recipe_name": "Updated Pancakes", "rating": 0, "review": "\"Cake blows\"", "customer": "Test Customer!" } ]
+
+Request:
+
+    curl -X 'POST' \ 'https://meal-planner-9c99.onrender.com/reviews/create/1?customer_id=1&rating=0&review=This%20Stinks' \ -H 'accept: application/json' \ -d ''
+
+
+Response:
+
+{ "review_id": 32 }
+    
