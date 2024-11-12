@@ -1,7 +1,7 @@
 
 # Testing example flows from v2_manual_test_results.md
 
-## Test supply matching ##
+## Test recipe getting ##
 
 Request
 
